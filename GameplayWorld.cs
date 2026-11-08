@@ -48,12 +48,15 @@ public class GameplayWorldClass : BaseTemplateClass
         WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 32, Y = 48, W = 16, H = 16 });
         WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 48, Y = 48, W = 16, H = 16 });
 
-        //Console.WriteLine(100.0 / 1.1f);
+        TerrainGeneratorClass.SetCurrentTilemap(WorldTilemap);
+        TerrainGeneratorClass.GenerateTerrain();
 
-        for (int IWorldHeight = 0; IWorldHeight < WorldTilemapHeight; IWorldHeight++) {
+        /*for (int IWorldHeight = 0; IWorldHeight < WorldTilemapHeight; IWorldHeight++) {
             for (int IWorldWidth = 0; IWorldWidth < WorldTilemapWidth; IWorldWidth++)
             {
-                if (IWorldHeight < 10)
+                
+                
+                /*if (IWorldHeight < 10)
                 {
                     continue;
                 } else if (IWorldHeight == 10)
@@ -128,7 +131,6 @@ public class GameplayWorldClass : BaseTemplateClass
                 {
                     WorldTilemap.SetTile(IWorldWidth, IWorldHeight, 7 + 4);
                 }
-                // Gold
 
 
                 /*if (WorldTilemap.GetTile(IWorldWidth, IWorldHeight) == 2 && OreRandomDice.Next(0, 100) == 0)
@@ -142,9 +144,9 @@ public class GameplayWorldClass : BaseTemplateClass
                 if (WorldTilemap.GetTile(IWorldWidth, IWorldHeight) == 2 && OreRandomDice.Next(0, 100) == 0)
                 {
                     WorldTilemap.SetTile(IWorldWidth, IWorldHeight, 8);
-                }*/
+                }
             }
-        }
+        }*/
 
         CameraClass.CameraX = 0;
         CameraClass.CameraY = 0;
