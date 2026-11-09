@@ -9,16 +9,10 @@ public class GameplayWorldClass : BaseTemplateClass
     public static TilemapClass FogOfWarTilemap;
     public static TilemapClass WorldTilemap;
 
-    public static Random GeneratorRandomDice;
-    public static Random OreRandomDice;
-
     public static int PlayerMoney;
 
     public override void Init()
     {
-        GeneratorRandomDice = new Random(0);
-        OreRandomDice = new Random(0);
-
         // Create a 32x32 chunk Tilemap (640x960 in tiles)
         nint? WorldTilemapTexture = SDL3.Image.LoadTexture(MainProgram.MainRenderingWindow.Renderer, "./Assets/Terrain.png");
         int WorldTilemapWidth = 32 * ChunkConstants.CHUNK_WIDTH;
@@ -36,26 +30,6 @@ public class GameplayWorldClass : BaseTemplateClass
         );
 
         TilesTextureHelperClass.DivideTextureIntoTiles(out WorldTilemap.TilemapTileAtlas, (nint)WorldTilemapTexture, 16, 16);
-
-        /*WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 0, Y = 0, W = 16, H = 16 });
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 16, Y = 0, W = 16, H = 16 });
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 32, Y = 0, W = 16, H = 16 });
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 48, Y = 0, W = 16, H = 16 });
-        
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 0, Y = 16, W = 16, H = 16 });
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 16, Y = 16, W = 16, H = 16 });
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 32, Y = 16, W = 16, H = 16 });
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 48, Y = 16, W = 16, H = 16 });
-
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 0, Y = 32, W = 16, H = 16 });
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 16, Y = 32, W = 16, H = 16 });
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 32, Y = 32, W = 16, H = 16 });
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 48, Y = 32, W = 16, H = 16 });
-
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 0, Y = 48, W = 16, H = 16 });
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 16, Y = 48, W = 16, H = 16 });
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 32, Y = 48, W = 16, H = 16 });
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 48, Y = 48, W = 16, H = 16 });*/
 
         TerrainGeneratorClass.SetCurrentTilemap(WorldTilemap);
         TerrainGeneratorClass.GenerateTerrain();
@@ -123,20 +97,5 @@ public class GameplayWorldClass : BaseTemplateClass
                 );
             }
         }
-    }
-
-    private int GetGeneratorIncrementalResult(int _StartGenerationY, int _EndGenerationY, int _CurrentYGeneration)
-    {
-        if (_CurrentYGeneration < _StartGenerationY)
-        {
-            return -1;
-        }
-        
-        float GenerationStrength = _EndGenerationY - _StartGenerationY;
-
-        int YGeneration = (int)MathF.Ceiling(GenerationStrength / (_CurrentYGeneration - _StartGenerationY));
-        int GenerationResult = GeneratorRandomDice.Next(0, YGeneration);
-
-        return GenerationResult;
     }
 }

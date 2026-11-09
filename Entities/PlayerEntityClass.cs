@@ -98,7 +98,7 @@ class PlayerEntityClass : EntityClass
         float PlayerPositionX = TweenClass.LERPInterpolate(OldPositionX, NewPositionX, MovementCuantity);
         float PlayerPositionY = TweenClass.LERPInterpolate(OldPositionY, NewPositionY, MovementCuantity);
 
-        if (GameplayWorldClass.WorldTilemap.GetTile(TargetTilePositionX, TargetTilePositionY) % 4 == 0)
+        if (GameplayWorldClass.WorldTilemap.GetTile(TargetTilePositionX, TargetTilePositionY) % 16 == 0)
         {
             MovementCuantity = MovementCuantity + 0.20f;
         } else

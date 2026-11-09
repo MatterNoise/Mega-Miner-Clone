@@ -16,66 +16,71 @@ class TerrainGeneratorClass
 
     public static void GenerateTerrain()
     {
-        PlotTilesRect(0, 10, CurrentTilemap.TilemapWidth, CurrentTilemap.TilemapHeight, 2);
-        PlotTilesRect(0, 200, CurrentTilemap.TilemapWidth, CurrentTilemap.TilemapHeight, 3);
-        PlotTilesRect(0, 400, CurrentTilemap.TilemapWidth, CurrentTilemap.TilemapHeight, 4);
+        if (CurrentTilemap == null)
+        {
+            return;
+        }
+        
+        PlotTilesRect(0, 10, CurrentTilemap.TilemapWidth, CurrentTilemap.TilemapHeight, TerrainTilesConstants.DIRT_TILE);
+        PlotTilesRect(0, 200, CurrentTilemap.TilemapWidth, CurrentTilemap.TilemapHeight, TerrainTilesConstants.STONE_TILE);
+        PlotTilesRect(0, 400, CurrentTilemap.TilemapWidth, CurrentTilemap.TilemapHeight, TerrainTilesConstants.HARD_STONE_TILE);
 
         PlotRandomTilesRect(
             0, 11,
             CurrentTilemap.TilemapWidth, 200,
-            5,
+            TerrainTilesConstants.COAL_ORE_TILE,
             0.01f
         );
         PlotRandomTilesRect(
             0, 30,
             CurrentTilemap.TilemapWidth, 200,
-            5,
+            TerrainTilesConstants.COAL_ORE_TILE,
             0.02f
         );
 
         PlotRandomTilesRect(
             0, 60,
             CurrentTilemap.TilemapWidth, 200,
-            6,
+            TerrainTilesConstants.COPPER_ORE_TILE,
             0.01f
         );
         PlotRandomTilesRect(
             0, 90,
             CurrentTilemap.TilemapWidth, 200,
-            6,
+            TerrainTilesConstants.COPPER_ORE_TILE,
             0.02f
         );
 
         PlotRandomTilesRect(
             0, 200,
             CurrentTilemap.TilemapWidth, 400,
-            6 + 4,
+            TerrainTilesConstants.COPPER_ORE_TILE + 16,
             0.02f
         );
         
         PlotRandomTilesRect(
             0, 230,
             CurrentTilemap.TilemapWidth, 400,
-            7 + 4,
+            TerrainTilesConstants.SILVER_ORE_TILE + 16,
             0.01f
         );
         PlotRandomTilesRect(
             0, 290,
             CurrentTilemap.TilemapWidth, 400,
-            7 + 4,
+            TerrainTilesConstants.SILVER_ORE_TILE + 16,
             0.02f
         );
 
         PlotRandomTilesRect(
             0, 320,
             CurrentTilemap.TilemapWidth, 400,
-            8 + 4,
+            TerrainTilesConstants.GOLD_ORE_TILE + 16,
             0.02f
         );
         PlotRandomTilesRect(
             0, 360,
             CurrentTilemap.TilemapWidth, 400,
-            8 + 4,
+            TerrainTilesConstants.GOLD_ORE_TILE + 16,
             0.02f
         );
 
