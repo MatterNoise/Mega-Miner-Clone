@@ -7,7 +7,7 @@ class PlayerEntityClass : EntityClass
 {
     private int OldTilePositionX = 0;
     private int OldTilePositionY = 0;
-    private int TargetTilePositionX = 64;
+    private int TargetTilePositionX = 0;
     private int TargetTilePositionY = 0;
 
     private float MovementCuantity = 1;
@@ -16,7 +16,10 @@ class PlayerEntityClass : EntityClass
 
     public override void Init()
     {
-        
+        OldTilePositionX = (int)PositionX / ChunkConstants.CHUNK_TILE_SIZE;
+        OldTilePositionY = (int)PositionY / ChunkConstants.CHUNK_TILE_SIZE;
+        TargetTilePositionX = (int)PositionX / ChunkConstants.CHUNK_TILE_SIZE;
+        TargetTilePositionY = (int)PositionY / ChunkConstants.CHUNK_TILE_SIZE;
     }
 
     public override void Close()
@@ -95,7 +98,15 @@ class PlayerEntityClass : EntityClass
         float PlayerPositionX = TweenClass.LERPInterpolate(OldPositionX, NewPositionX, MovementCuantity);
         float PlayerPositionY = TweenClass.LERPInterpolate(OldPositionY, NewPositionY, MovementCuantity);
 
-        MovementCuantity = MovementCuantity + 0.2f;
+        if (GameplayWorldClass.WorldTilemap.GetTile(TargetTilePositionX, TargetTilePositionY) % 4 == 0)
+        {
+            MovementCuantity = MovementCuantity + 0.20f;
+        } else
+        {
+            MovementCuantity = MovementCuantity + 0.10f;
+        }
+
+
         MovementCuantity = ClampClass.Clamp(0.0f, 1.0f, MovementCuantity);
 
         if (MovementCuantity > 0.9999f)

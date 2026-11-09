@@ -22,7 +22,6 @@ public class TilemapClass : BaseTemplateClass
 
     public int[] TilemapTiles;
 
-    // Function ONLY used by the class
     private bool CheckIfTileIsOfflimits(int _TileX, int _TileY)
     {
         if (
@@ -38,7 +37,6 @@ public class TilemapClass : BaseTemplateClass
         return false;
     }
 
-    // Function of the class than can be used publicly
     public int GetTile(int _TileX, int _TileY)
     {
         if (CheckIfTileIsOfflimits(_TileX, _TileY) == true)
@@ -95,7 +93,6 @@ public class TilemapClass : BaseTemplateClass
         }
     }
 
-    // Function of the class than can be used ANYWHERE whithout instancing
     public static void GetChunkToLocalPosition()
     {
 
