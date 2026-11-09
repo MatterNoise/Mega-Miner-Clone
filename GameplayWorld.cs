@@ -37,8 +37,8 @@ public class GameplayWorldClass : BaseTemplateClass
         CameraClass.CameraX = 0;
         CameraClass.CameraY = 0;
 
-        PlayerEntity.PositionX = (WorldTilemap.TilemapWidth * ChunkConstants.CHUNK_TILE_SIZE) / 2;
-        PlayerEntity.PositionY = 0;
+        //PlayerEntity.PositionX = (WorldTilemap.TilemapWidth * ChunkConstants.CHUNK_TILE_SIZE) / 2;
+        //PlayerEntity.PositionY = 0;
 
         PlayerEntity.Init();
     }

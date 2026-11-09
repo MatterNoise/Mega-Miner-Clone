@@ -5,21 +5,15 @@ using GameClasses;
 
 class PlayerEntityClass : EntityClass
 {
-    private int OldTilePositionX = 0;
-    private int OldTilePositionY = 0;
-    private int TargetTilePositionX = 0;
-    private int TargetTilePositionY = 0;
-
-    private float MovementCuantity = 1;
-
     private bool PlayerInMovement = false;
 
     public override void Init()
     {
-        OldTilePositionX = (int)PositionX / ChunkConstants.CHUNK_TILE_SIZE;
-        OldTilePositionY = (int)PositionY / ChunkConstants.CHUNK_TILE_SIZE;
-        TargetTilePositionX = (int)PositionX / ChunkConstants.CHUNK_TILE_SIZE;
-        TargetTilePositionY = (int)PositionY / ChunkConstants.CHUNK_TILE_SIZE;
+        OldTilePositionX = GameplayWorldClass.WorldTilemap.TilemapWidth / 2;
+        OldTilePositionY = 0;
+        
+        TargetTilePositionX = GameplayWorldClass.WorldTilemap.TilemapWidth / 2;
+        TargetTilePositionY = 0;
     }
 
     public override void Close()
@@ -30,9 +24,6 @@ class PlayerEntityClass : EntityClass
     {
         if (PlayerInMovement == false)
         {
-            OldTilePositionX = TargetTilePositionX;
-            OldTilePositionY = TargetTilePositionY;
-
             bool LockPlayerMovementInY = false;
             if (RootBeer_KeyboardSystem.IsKeyHolded((UInt16)SDL.Scancode.W))
             {
@@ -72,50 +63,22 @@ class PlayerEntityClass : EntityClass
 
             if (TargetTilePositionY < 9)
             {
+                OldTilePositionY = 9;
                 TargetTilePositionY = 9;
             }
         }
 
-        if (GameplayWorldClass.WorldTilemap.GetTile(OldTilePositionX, OldTilePositionY) == 5)
+        /*if (GameplayWorldClass.WorldTilemap.GetTile(OldTilePositionX, OldTilePositionY) == TerrainTilesConstants.COAL_ORE_TILE)
         {
             GameplayWorldClass.PlayerMoney = GameplayWorldClass.PlayerMoney + 5;
-        }
-        if (GameplayWorldClass.WorldTilemap.GetTile(OldTilePositionX, OldTilePositionY) == 6)
-        {
-            GameplayWorldClass.PlayerMoney = GameplayWorldClass.PlayerMoney + 20;
-        }
-        if (GameplayWorldClass.WorldTilemap.GetTile(OldTilePositionX, OldTilePositionY) == 7)
-        {
-            GameplayWorldClass.PlayerMoney = GameplayWorldClass.PlayerMoney + 50;
-        }
-
-        float OldPositionX = OldTilePositionX * ChunkConstants.CHUNK_TILE_SIZE;
-        float OldPositionY = OldTilePositionY * ChunkConstants.CHUNK_TILE_SIZE;
-
-        float NewPositionX = TargetTilePositionX * ChunkConstants.CHUNK_TILE_SIZE;
-        float NewPositionY = TargetTilePositionY * ChunkConstants.CHUNK_TILE_SIZE;
-
-        float PlayerPositionX = TweenClass.LERPInterpolate(OldPositionX, NewPositionX, MovementCuantity);
-        float PlayerPositionY = TweenClass.LERPInterpolate(OldPositionY, NewPositionY, MovementCuantity);
-
-        if (GameplayWorldClass.WorldTilemap.GetTile(TargetTilePositionX, TargetTilePositionY) % 16 == 0)
-        {
-            MovementCuantity = MovementCuantity + 0.20f;
-        } else
-        {
-            MovementCuantity = MovementCuantity + 0.10f;
-        }
-
-
-        MovementCuantity = ClampClass.Clamp(0.0f, 1.0f, MovementCuantity);
+        }*/
 
         if (MovementCuantity > 0.9999f)
         {
             PlayerInMovement = false;
         }
 
-        PositionX = PlayerPositionX;
-        PositionY = PlayerPositionY;
+        MoveInTiles(0.25f);
 
         CameraClass.CameraX = (PositionX - 160) + 8;
         CameraClass.CameraY = (PositionY - 120) + 8;
