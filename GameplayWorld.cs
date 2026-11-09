@@ -20,16 +20,24 @@ public class GameplayWorldClass : BaseTemplateClass
         OreRandomDice = new Random(0);
 
         // Create a 32x32 chunk Tilemap (640x960 in tiles)
+        nint? WorldTilemapTexture = SDL3.Image.LoadTexture(MainProgram.MainRenderingWindow.Renderer, "./Assets/Terrain.png");
         int WorldTilemapWidth = 32 * ChunkConstants.CHUNK_WIDTH;
         int WorldTilemapHeight = 32 * ChunkConstants.CHUNK_HEIGHT;
 
+        if (WorldTilemapTexture == null)
+        {
+            return;
+        }
+
         WorldTilemap = new TilemapClass(
-            SDL3.Image.LoadTexture(MainProgram.MainRenderingWindow.Renderer, "./Assets/Terrain.png"),
+            (nint)WorldTilemapTexture,
             WorldTilemapWidth,
             WorldTilemapHeight
         );
 
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 0, Y = 0, W = 16, H = 16 });
+        TilesTextureHelperClass.DivideTextureIntoTiles(out WorldTilemap.TilemapTileAtlas, (nint)WorldTilemapTexture, 16, 16);
+
+        /*WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 0, Y = 0, W = 16, H = 16 });
         WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 16, Y = 0, W = 16, H = 16 });
         WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 32, Y = 0, W = 16, H = 16 });
         WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 48, Y = 0, W = 16, H = 16 });
@@ -47,7 +55,7 @@ public class GameplayWorldClass : BaseTemplateClass
         WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 0, Y = 48, W = 16, H = 16 });
         WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 16, Y = 48, W = 16, H = 16 });
         WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 32, Y = 48, W = 16, H = 16 });
-        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 48, Y = 48, W = 16, H = 16 });
+        WorldTilemap.TilemapTileAtlas.Add(new SDL.FRect() { X = 48, Y = 48, W = 16, H = 16 });*/
 
         TerrainGeneratorClass.SetCurrentTilemap(WorldTilemap);
         TerrainGeneratorClass.GenerateTerrain();
